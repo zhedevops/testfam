@@ -1,0 +1,48 @@
+{% extends 'admin/dashboard/index.html.twig' %}
+
+{% block subbody %}
+    <div>
+        <h3>Новости</h3>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Заголовок</th>
+                <th>Текст</th>
+                <th>Дата публикации</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in news %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.content }}</td>
+                    <td>{{ item.publishedAt|date('d.m.Y H:i') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% if max_pages > 1 %}
+            <ul class="pag-inline">
+                <li class="{{ current_page == 1 ? 'disabled' }}">
+                    <a href="{{ path('app_dashboard_news', {'page': current_page - 1}) }}">Назад</a>
+                </li>
+
+                {% for i in 1..max_pages %}
+                    <li class="{{ current_page == i ? 'active' }}">
+                        <a href="{{ path('app_dashboard_news', {'page': i}) }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+
+                <li class="{{ current_page == max_pages ? 'disabled' }}">
+                    <a href="{{ path('app_dashboard_news', {'page': current_page + 1}) }}">Вперед</a>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+
+{% endblock %}

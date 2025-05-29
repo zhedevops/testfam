@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Вход в систему{% endblock %}
+
+{% block body %}
+    <div>
+        <h1>Вход в систему</h1>
+
+        <div class="mb-15">
+
+            {% if success %}
+                <div class="success">{{ success }}</div>
+            {% endif %}
+
+            {% if error %}
+                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <form method="post">
+                <div class="text-field text-field_floating-3">
+                    <input class="text-field__input" type="email" name="_username" id="username" autocomplete="username" required autofocus>
+                    <label class="text-field__label" for="email">Email</label>
+                </div>
+                <div class="text-field text-field_floating-3">
+                    <input class="text-field__input" type="password" name="_password" id="password"
+                           autocomplete="current-password" required>
+                    <label class="text-field__label" for="name">Пароль</label>
+                </div>
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}">
+
+                <button type="submit" class="btn">Войти</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

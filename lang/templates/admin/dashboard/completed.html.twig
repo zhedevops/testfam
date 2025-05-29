@@ -1,0 +1,27 @@
+{% extends 'admin/dashboard/index.html.twig' %}
+
+{% block subbody %}
+    <div>
+        <h3>Завершенные регистрации</h3>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Дата регистрации</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in completed_registrations %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.createdAt|date('d.m.Y H:i') }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

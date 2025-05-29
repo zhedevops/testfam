@@ -1,0 +1,16 @@
+<div id="news-list" class="row">
+    {% for news in news_items %}
+    <div class="news-article">
+        <h3>{{ news.title }}</h3>
+        <small>
+            {{ news.publishedAt|date('d.m.Y H:i') }}
+        </small>
+        <p class="card-text">{{ news.content|u.truncate(150, '...') }}</p>
+        <div>
+            <a href="{{ path('app_news_show', {'id': news.id}) }}">
+                Читать далее
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>

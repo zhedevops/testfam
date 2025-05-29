@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+    <div class="mb-15 header">
+        <span><a href="{{ path('app_home') }}">Главная</a></span>
+        <span><a href="{{ path('app_dashboard') }}">Завершенные регистрации</a></span>
+        <span><a href="{{ path('app_dashboard_incompleted') }}">Незавершенные регистрации</a></span>
+        <span><a href="{{ path('app_dashboard_codes') }}">Отправленные коды подтверждения</a></span>
+        <span><a href="{{ path('app_dashboard_news') }}">Новости</a></span>
+        <span class="flright">{{ app.user.email }}</span>
+    </div>
+{% endblock %}
+
+{% block body %}<h1>Панель управления</h1>
+
+    {% block subbody %}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <h1>Главные новости</h1>
+            <div class="search">
+                <form>
+                    <input type="text" id="news-search" placeholder="Поиск новостей...">
+                </form>
+            </div>
+
+            {{ include('news/items.html.twig', {
+                news_items: news_items
+            }) }}
+            <div id="search-results"></div>
+        {% endif %}
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('news-search');
+        const searchResults = document.getElementById('search-results');
+        const newsList = document.getElementById('news-list');
+        let debounceTimer;
+
+        searchInput.addEventListener('input', function() {
+          clearTimeout(debounceTimer);
+          const query = this.value.trim();
+
+          if (query.length === 0) {
+            searchResults.innerHTML = '';
+            newsList.style.display = 'block';
+            return;
+          }
+
+          debounceTimer = setTimeout(() => {
+            fetch(`/news/search?q=${encodeURIComponent(query)}`)
+              .then(response => response.json())
+              .then(data => {
+                newsList.style.display = 'none';
+
+                if (data.news.length === 0) {
+                  searchResults.innerHTML = '<div>Ничего не найдено</div>';
+                  return;
+                }
+
+                let html = '<div class="list-group">';
+                data.news.forEach(news => {
+                  html += `
+                    <div class="news-article">
+                        <h3>${news.title}</h3>
+                        <small>${news.publishedAt}</small>
+                        <p>${news.content.substring(0, 150)}...</p>
+                        <div>
+                            <a href="${news.url}">Читать далее</a>
+                        </div>
+                    </div>`;
+                });
+                html += '</div>';
+
+                searchResults.innerHTML = html;
+              })
+              .catch(error => {
+                console.error('Search error:', error);
+              });
+          }, 300); // Задержка 300мс
+        });
+      });
+    </script>
+{% endblock %}

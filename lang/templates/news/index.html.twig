@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1>Главные новости</h1>
+        {{ include('news/items.html.twig', {
+            news_items: news_items
+        }) }}
+
+        {% if max_pages > 1 %}
+            <ul class="pag-inline">
+                <li class="{{ current_page == 1 ? 'disabled' }}">
+                    <a href="{{ path('app_news', {'page': current_page - 1}) }}">Назад</a>
+                </li>
+
+                {% for i in 1..max_pages %}
+                    <li class="{{ current_page == i ? 'active' }}">
+                        <a href="{{ path('app_news', {'page': i}) }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+
+                <li class="{{ current_page == max_pages ? 'disabled' }}">
+                    <a href="{{ path('app_news', {'page': current_page + 1}) }}">Вперед</a>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

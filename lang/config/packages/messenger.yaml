@@ -1,0 +1,28 @@
+framework:
+    messenger:
+        failure_transport: failed
+
+        transports:
+            amqp:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        name: messages
+                        type: direct
+                    queues:
+                        messages: ~
+            failed:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    queue_name: failed
+
+        routing:
+            'App\Message\ConfirmationCodeMessage': amqp
+
+# when@test:
+#    framework:
+#        messenger:
+#            transports:
+#                # replace with your transport name here (e.g., my_transport: 'in-memory://')
+#                # For more Messenger testing tools, see https://github.com/zenstruck/messenger-test
+#                async: 'in-memory://'

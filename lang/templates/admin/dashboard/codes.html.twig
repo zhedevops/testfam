@@ -1,0 +1,29 @@
+{% extends 'admin/dashboard/index.html.twig' %}
+
+{% block subbody %}
+    <div>
+        <h3>Отправленные коды подтверждения</h3>
+    </div>
+    <div>
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Email</th>
+                    <th>Код</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entry in verification_codes %}
+                    <tr>
+                        <td>{{ entry.createdAt|date('d.m.Y H:i') }}</td>
+                        <td>{{ entry.email }}</td>
+                        <td>{{ entry.code }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

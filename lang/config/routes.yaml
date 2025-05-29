@@ -1,0 +1,73 @@
+app_home:
+    path: /
+    controller: App\Controller\HomeController::index
+    methods: [GET]
+
+app_registration:
+    path: /registration
+    controller: App\Controller\RegistrationController::index
+    methods: [GET, POST]
+
+app_registration_code:
+    path: /register
+    controller: App\Controller\RegistrationController::register
+    methods: [GET, POST]
+
+app_login:
+    path: /login
+    controller: App\Controller\LoginController::index
+    methods: [GET, POST]
+
+app_logout:
+    path: /logout
+    controller: App\Controller\LoginController::logout
+    methods: [GET]
+
+app_news_parse:
+    path: /parseNews
+    controller: App\Controller\NewsController::parseNews
+    methods: [GET]
+    defaults:
+        _csrf_token: false
+
+app_news:
+    path: /news
+    controller: App\Controller\NewsController::index
+    methods: GET
+
+app_news_show:
+    path: /news/{id}
+    controller: App\Controller\NewsController::show
+    methods: GET
+    requirements:
+        id: '\d+'
+
+app_news_search:
+    path: /news/search
+    controller: App\Controller\NewsController::search
+    methods: GET
+
+app_events:
+    path: /events
+    controller: App\Controller\EventStreamController::mercureStreamcurl -v http://localhost:3000/.well-known/mercure
+    methods: GET
+
+app_dashboard:
+    path: /admin/completed
+    controller: App\Controller\Admin\DashboardController::index
+    methods: GET
+
+app_dashboard_incompleted:
+    path: /admin/incompleted
+    controller: App\Controller\Admin\DashboardController::incompleted
+    methods: GET
+
+app_dashboard_codes:
+    path: /admin/codes
+    controller: App\Controller\Admin\DashboardController::codes
+    methods: GET
+
+app_dashboard_news:
+    path: /admin/news
+    controller: App\Controller\Admin\DashboardController::news
+    methods: GET

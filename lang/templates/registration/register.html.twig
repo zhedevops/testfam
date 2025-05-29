@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Верификационный код{% endblock %}
+
+{% block body %}
+    <h1>Верификационный код регистрации</h1>
+
+    {% if error %}
+        <div class="error">{{ error | raw }}</div>
+    {% endif %}
+
+    {{ form_start(registrationFinishForm) }}
+    <div class="text-field text-field_floating-3">
+        {{ form_widget(registrationFinishForm.verification_code) }}
+        {{ form_label(registrationFinishForm.verification_code) }}
+    </div>
+
+    <button type="submit" class="btn">Отправить</button>
+    {{ form_end(registrationFinishForm) }}
+{% endblock %}
