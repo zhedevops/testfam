@@ -5,9 +5,12 @@
 ### Ссылка на запущенное приложение:
 [https://test.famtradition.ru/](https://test.famtradition.ru/)
 
+### Ссылка на Телеграм:
+[https://t.me/testlangam](https://t.me/testlangam)
+
 ### Данные администратора для доступа к панели управления:
-Логин: admin@admin.admin
-Пароль: admin
+Логин: __admin@admin.admin__
+Пароль: __admin__
   
 ### Особенности:
 - Данные с ТАСС парсятся каждые 15 минут.
