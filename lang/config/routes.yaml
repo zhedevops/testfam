@@ -49,7 +49,7 @@ app_news_search:
 
 app_events:
     path: /events
-    controller: App\Controller\EventStreamController::mercureStreamcurl -v http://localhost:3000/.well-known/mercure
+    controller: App\Controller\EventStreamController::mercureStream
     methods: GET
 
 app_dashboard:
