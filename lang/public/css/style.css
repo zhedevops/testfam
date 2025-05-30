@@ -62,7 +62,7 @@
 }
 
 .notification.hide {
-    left: 100%;
+    left: -300px;
     opacity: 0;
 }
 

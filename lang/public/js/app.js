@@ -4,17 +4,22 @@ const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NDg0MjU5MjcuNjI2
 const url = new URL('https://test.famtradition.ru/.well-known/mercure');
 url.searchParams.append('topic', '/events');
 
-var eventSource = new SSE(url, { headers: { Authorization: `Bearer ${token}` } });
+const eventSource = new SSE(url, { headers: { Authorization: `Bearer ${token}` } });
 
 eventSource.onopen = () => console.log('Mercure connection established');
-eventSource.onerror = (e) => console.error('Mercure error:', e);
+// Текущая версия клиента рестартовать ещё не умеет, поэтому запуск руками
+eventSource.addEventListener("readystatechange", (e) => {
+  if (e.readyState === SSE.CLOSED) {
+    eventSource.stream();
+  }
+});
 
 eventSource.addEventListener("message", function (e) {
   if (!e.data) {
     return;
   }
   const data = JSON.parse(e.data);
-  console.log('Received event:', e);
+  //console.log('Received event:', e);
   switch(data.type) {
     case 'registration':
       showNotification(`Зарегистрирован новый пользователь: ${data.data.email}`, 'success');
