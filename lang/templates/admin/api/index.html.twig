@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Наш API{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h3>API</h3>
+    <div><i>Сайт обрабатывает запросы получения списка пользователей и получения информации по каждому пользователю. Токен авторизации действует 2 минуты.</i></div>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if authForm %}
+        <p>Введите пароль администратора для получения списка пользователей.</p>
+        {{ form_start(authForm) }}
+        <div class="text-field text-field_floating-3">
+            {{ form_widget(authForm.plainPassword) }}
+            {{ form_label(authForm.plainPassword) }}
+        </div>
+
+        <div>
+            <button type="submit" class="btn">Получить список пользователей</button>
+        </div>
+
+        {{ form_end(authForm) }}
+    {% endif %}
+
+    {% if users %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Информация</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.email }}</td>
+                    <td><a href="{{ path('app_api_user', {'id': user.id}) }}">Получить данные пользователя</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+</div>
+{% endblock %}

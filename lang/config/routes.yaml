@@ -71,3 +71,13 @@ app_dashboard_news:
     path: /admin/news
     controller: App\Controller\Admin\DashboardController::news
     methods: GET
+
+app_api:
+    path: /admin/api
+    controller: App\Controller\Admin\ApiController::index
+    methods: [GET, POST]
+
+app_api_user:
+    path: /admin/api/userInfo
+    controller: App\Controller\Admin\ApiController::userInfo
+    methods: GET
